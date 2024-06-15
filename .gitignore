@@ -1,6 +1,9 @@
 # Jupiter notebook
 .ipynb_checkpoints
 
+# Python cache
+__pycache__/
+
 # Environments
 .env
 .venv
