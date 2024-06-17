@@ -96,11 +96,10 @@ y_data = ['PKM2_inhibition', 'ERK2_inhibition']
 
 
 def get_descriptors(inhibitor):
-    match inhibitor:
-        case 'PKM2_inhibition':
-            return x_data_pkm2_fingerprint
-        case 'ERK2_inhibition':
-            return x_data_erk2_fingerprint
+    if inhibitor == 'PKM2_inhibition':
+        return x_data_pkm2_fingerprint
+    elif inhibitor == 'ERK2_inhibition':
+        return x_data_erk2_fingerprint
 
 
 def get_mol_descriptors(mol):
@@ -120,6 +119,7 @@ def get_mol_descriptors(mol):
             print(f"{descriptor} '{mol}' is not callable in RDKit.")
             mol_descriptors[descriptor] = None
     return mol_descriptors
+
 
 def compute_descriptors(smiles):
     mol = Chem.MolFromSmiles(smiles)
