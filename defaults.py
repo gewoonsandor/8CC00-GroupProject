@@ -10,6 +10,7 @@ x_data_pkm2 = [
     "BertzCT",
     "BalabanJ",
     "Chi4v",
+    "MolLogP",
     "AvgIpc",
     "Chi3v",
     "PEOE_VSA3",
@@ -18,27 +19,19 @@ x_data_pkm2 = [
     "BCUT2D_MWHI",
     "VSA_EState1",
     "NumHeteroatoms",
-    "VSA_EState9",
     "EState_VSA6",
     "BCUT2D_MRHI",
-    "fr_sulfonamd",
     "fr_thiophene",
-    "PEOE_VSA5",
-    "SlogP_VSA3",
     "Chi1v",
     "SMR_VSA10",
     "BCUT2D_MWLOW",
-    "SlogP_VSA5",
     "NumHDonors",
     "NHOHCount",
     "HeavyAtomMolWt",
     "NumAromaticHeterocycles",
-    "SlogP_VSA6",
-    "VSA_EState5",
     "EState_VSA3",
     "fr_C_O",
     "fr_C_O_noCOO",
-    "fr_furan",
     "MolWt",
     "ExactMolWt",
     "FractionCSP3",
@@ -46,62 +39,49 @@ x_data_pkm2 = [
     "VSA_EState10",
     "Ipc",
     "PEOE_VSA1",
+    "fr_amide",
     "NOCount",
     "PEOE_VSA14",
     "MinEStateIndex",
-    "SlogP_VSA12",
-    "VSA_EState2",
-    "SlogP_VSA1",
-    "Chi0v",
-    "SlogP_VSA8",
     "LabuteASA",
-    "PEOE_VSA4"
+    "VSA_EState6",
+    "MolMR",
 ]
 
 x_data_erk2 = [
-    "FpDensityMorgan1",
+    "PEOE_VSA1",
     "SMR_VSA9",
-    "SlogP_VSA6",
-    "SlogP_VSA8",
     "NumAromaticRings",
     "RingCount",
     "MolLogP",
     "fr_C_O",
     "fr_C_O_noCOO",
-    "fr_nitro",
     "fr_nitro_arom",
-    "PEOE_VSA4",
     "VSA_EState6",
-    "SlogP_VSA5",
     "NumAromaticCarbocycles",
     "fr_benzene",
     "fr_thiazole",
     "fr_amide",
-    "VSA_EState5",
-    "SlogP_VSA10",
     "EState_VSA7",
-    "SlogP_VSA3",
     "BertzCT",
     "BCUT2D_LOGPHI",
     "SMR_VSA7",
     "BalabanJ",
-    "FpDensityMorgan2",
     "SMR_VSA5",
     "EState_VSA2",
     "Ipc",
     "MolMR",
     "HeavyAtomMolWt",
-    "fr_aniline",
     "fr_aryl_methyl",
-    "fr_alkyl_halide",
     "FractionCSP3",
     "MolWt",
     "ExactMolWt",
     "Chi1",
+    "Chi0v",
     "fr_Ar_NH",
     "fr_Nhpyrrole",
     "LabuteASA",
-    "EState_VSA4"
+    "AvgIpc",
 ]
 
 x_data = list(set(x_data_erk2 + x_data_pkm2))
@@ -140,6 +120,13 @@ def get_mol_descriptors(mol):
             print(f"{descriptor} '{mol}' is not callable in RDKit.")
             mol_descriptors[descriptor] = None
     return mol_descriptors
+
+def compute_descriptors(smiles):
+    mol = Chem.MolFromSmiles(smiles)
+    if mol:
+        return get_mol_descriptors(mol)
+    else:
+        return {key: None for key in x_data}
 
 
 def calculate_scores(predictions, test_set, name):
