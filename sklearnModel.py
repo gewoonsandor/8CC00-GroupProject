@@ -8,8 +8,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn import svm
 
-# test of dit werkt jaowl
-
 import defaults
 from sklearn.model_selection import train_test_split
 
